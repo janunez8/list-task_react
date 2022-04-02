@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
+
 
 
  class Task extends Component{
@@ -10,8 +12,8 @@ import React, {Component} from 'react';
                 {task.description} 
                 {task.done} 
                 {task.id}
-                <input type="checkbox"/>
-                <button style={btnDelete}>Delete</button>
+                <input type="checkbox" onChange={this.props.checkTask.bind(this, task.id)}/>
+                <button style={btnDelete}  onClick={this.props.deleteTask.bind(this, task.id)}>Delete</button>
             </div>
         )
     }
@@ -20,11 +22,16 @@ import React, {Component} from 'react';
         const {task} = this.props;
         return{
             fontSize: "20px",
-            color: task.done ? "black" : "gray",
+            color: task.done ? "gray" : "black",
             textDecoration: task.done ? "line-through" : "none"
         }
     }
  }
+
+ //Especifico que solo admite un object task
+ Task.propTypes = {
+    task: PropTypes.object.isRequired
+}
 
  //Estilos en linea a partir de una variable constante
  const btnDelete = {
